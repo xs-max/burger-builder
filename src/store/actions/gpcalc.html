@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const checkGrade = (grade) => {
+            switch(grade.toLowerCase()){
+                case 'a': return 5;
+                case 'b': return 4;
+                case 'c': return 3;
+                case 'd': return 2;
+                case 'e': return 1;
+                case 'f': return 0;
+                default:  return 'invalid';
+            }
+        }
+
+        const calcGPA = (numberOfCourses) => {
+            if (typeof numberOfCourses !== 'number') {
+                console.log(('Invalid input!! please enter a number'));
+                return;
+            }
+            const course = {
+                courseNames: [],
+                grades: [],
+                units: []
+            }
+            
+            for (let i = 0; i < numberOfCourses; i++) {
+                course['courseNames'][i] =  prompt('Enter course title');
+                course['grades'][i]      = checkGrade(prompt('Enter Grade'));
+                if (course['grades'][i] === 'invalid') {
+                course['grades'][i]      = checkGrade(+prompt('please enter a valid grade'));
+                }
+                course['units'][i]       = +prompt('Enter Credit Unit');
+                if (typeof course['units'][i] !== 'number') {
+                    course['units'][i]       = +prompt('Enter a valid Credit Unit');
+                }
+            }
+            const points = course.grades.reduce((point, curVal, index,) => {
+                return point +  (curVal * course.units[index]);
+            }, 0);
+            const units = course.units.reduce((unit, curVal) => {
+                return unit + curVal;
+            }, 0);
+
+            alert(`Your gpa for the semester is ${(points/units).toFixed(2)}`);
+        }
+
+        const numberOfCourses = prompt('Enter nuber of courses');
+
+        calcGPA(+numberOfCourses);
+    </script>
+</body>
+</html>
